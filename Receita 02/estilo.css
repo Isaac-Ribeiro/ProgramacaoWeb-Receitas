@@ -1,0 +1,65 @@
+p.verso {
+  color: blue;
+  font-size: 18px;
+  margin: 4px 0;
+}
+
+/* Exercício 1: */
+p.mote {
+  color: red;
+  font-size: 18px;
+  margin: 4px 0;
+  font-weight: bold;
+}
+
+/* Exercício 3: */
+a.link-poeta {
+  color: darkgreen;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+a.link-poeta:visited {
+  color: purple;
+}
+
+a.link-poeta:hover {
+  color: orangered;
+  text-decoration: underline;
+}
+
+/* Exercício 5: */
+.avatar {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/* Exercício 6: */
+div.poeta img {
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+/* Exercício 7: */
+th {
+  background-color: #2c3e50;
+  color: white;
+  padding: 8px 16px;
+  text-align: left;
+}
+
+td {
+  padding: 8px 16px;
+  border: 1px solid #ccc;
+}
+
+table {
+  border-collapse: collapse;
+  margin-top: 10px;
+}

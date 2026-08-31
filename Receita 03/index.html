@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Receita HTML + JS</title>
+
+  <!-- Exercício 3: -->
+  <style>
+    #conteudoCerveja {
+      transition: opacity 0.4s ease;
+      opacity: 1;
+      min-height: 40px;
+    }
+  </style>
+</head>
+
+<!-- Exercício 1: -->
+<body>
+
+  <div id="botaoContainer">
+    <button id="botaoCarregar">Carregar cerveja</button>
+  </div>
+
+  <div id="conteudoCerveja"></div>
+
+  <script>
+    // Exercício 2:
+    // Exercício 3:
+    function alternarCerveja() {
+      let div = document.getElementById("conteudoCerveja");
+
+      if (div.innerHTML.trim() === "") {
+
+        div.innerHTML = `<h1>Guinness</h1>`;
+        div.style.opacity = 0;
+
+        setTimeout(function () {
+          div.style.opacity = 1;
+        }, 20);
+      } else {
+        div.style.opacity = 0;
+        setTimeout(function () {
+          div.innerHTML = "";
+        }, 400);
+      }
+    }
+
+    let botao = document.getElementById("botaoCarregar");
+    botao.addEventListener("click", alternarCerveja);
+  </script>
+
+</body>
+</html>

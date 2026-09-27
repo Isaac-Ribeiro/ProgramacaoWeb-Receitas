@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+<div><button id="botaoCarregar">Carregando cervejas...</button></div>
+<div id="cervejasDiv"></div>
+
+<h2>Exercício 1</h2>
+<div><button id="botaoEx1">Carregar tabela</button></div>
+<div id="tabelaEx1Div"></div>
+
+<h2>Exercício 2</h2>
+<div><button id="botaoEx2">Carregar tabela estilizada</button></div>
+<div id="tabelaEx2Div"></div>
+
+<h2>Exercício 3</h2>
+<div><button id="botaoEx3">Carregar tabela completa</button></div>
+<div id="tabelaEx3Div"></div>
+
+<h2>Exercício 4</h2>
+<div><button id="botaoEx4a">Carregar no default</button></div>
+<div><button id="botaoEx4b">Carregar em elemento arbitrário</button></div>
+<div id="outroDivEx4"></div>
+
+<h2>Exercício 5</h2>
+<div><button id="botaoEx5a">Carregar com cabeçalhos default</button></div>
+<div><button id="botaoEx5b">Carregar com cabeçalhos customizados</button></div>
+<div id="tabelaEx5Div"></div>
+
+<h2>Exercício 6</h2>
+<div><button id="botaoEx6a">Carregar com propriedades default (name, alcohol, style, ibu)</button></div>
+<div><button id="botaoEx6b">Carregar com propriedades diferentes (sorvetes)</button></div>
+<div id="tabelaEx6Div"></div>
+
+
+<script>
+
+// ===================== Receita =====================
+let cervejas = [
+  { name: "Guiness", alcohol: "10%" },
+  { name: "Desperados", alcohol: "6%" },
+  { name: "Becks", alcohol: "5%" }
+]
+
+const carregarDiv = cs => {
+  const div = document.getElementById("cervejasDiv")
+  const itensHtml = cs.map( ({name, alcohol}) => `<div>${name} -- ${alcohol}</div>` )
+  div.innerHTML = `${itensHtml.join("\n")}`
+}
+
+document.getElementById("botaoCarregar")
+  .addEventListener("click", () => carregarDiv(cervejas))
+
+
+// ===================== Exercício 1 =====================
+const carregarTabelaEx1 = cs => {
+  const div = document.getElementById("tabelaEx1Div")
+  const linhas = cs.map( ({name, alcohol}) => `<tr><td>${name}</td><td>${alcohol}</td></tr>` )
+  div.innerHTML = `
+    <table border="1">
+      <tr><th>Nome</th><th>Álcool</th></tr>
+      ${linhas.join("\n")}
+    </table>
+  `
+}
+
+document.getElementById("botaoEx1")
+  .addEventListener("click", () => carregarTabelaEx1(cervejas))
+
+
+// ===================== Exercício 2 =====================
+const carregarTabelaEx2 = cs => {
+  const div = document.getElementById("tabelaEx2Div")
+  const linhas = cs.map( ({name, alcohol}) => `<tr><td>${name}</td><td>${alcohol}</td></tr>` )
+  div.innerHTML = `
+    <style>
+      #tabelaEx2Div table {
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+      }
+      #tabelaEx2Div th, #tabelaEx2Div td {
+        border: 1px solid #999;
+        padding: 8px 16px;
+        text-align: left;
+      }
+      #tabelaEx2Div th {
+        background-color: #333;
+        color: white;
+      }
+      #tabelaEx2Div tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+    </style>
+    <table>
+      <tr><th>Nome</th><th>Álcool</th></tr>
+      ${linhas.join("\n")}
+    </table>
+  `
+}
+
+document.getElementById("botaoEx2")
+  .addEventListener("click", () => carregarTabelaEx2(cervejas))
+
+
+// ===================== Exercício 3 =====================
+let cervejasEx3 = [
+  { name: "Guiness", alcohol: "10%", style: "Imperial Stout", ibu: "45" },
+  { name: "Desperados", alcohol: "6%", style: "Lager", ibu: "18" },
+  { name: "Becks", alcohol: "5%", style: "Pilsen", ibu: "22" },
+  { name: "Ipanema", alcohol: "7%", style: "APA", ibu: "35" },
+  { name: "Colorado", alcohol: "8%", style: "Red Ale", ibu: "28" }
+]
+
+const carregarDivEx3 = cs => {
+  const div = document.getElementById("tabelaEx3Div")
+  const linhas = cs.map( ({name, alcohol, style, ibu}) =>
+    `<tr><td>${name}</td><td>${alcohol}</td><td>${style}</td><td>${ibu}</td></tr>` )
+  div.innerHTML = `
+    <table border="1">
+      <tr><th>Nome</th><th>Álcool</th><th>Estilo</th><th>Amargor (IBU)</th></tr>
+      ${linhas.join("\n")}
+    </table>
+  `
+}
+
+document.getElementById("botaoEx3")
+  .addEventListener("click", () => carregarDivEx3(cervejasEx3))
+
+
+// ===================== Exercício 4 =====================
+const carregarDivEx4 = (cs, idElemento = "outroDivEx4") => {
+  const div = document.getElementById(idElemento)
+  const linhas = cs.map( ({name, alcohol, style, ibu}) =>
+    `<tr><td>${name}</td><td>${alcohol}</td><td>${style}</td><td>${ibu}</td></tr>` )
+  div.innerHTML = `
+    <table border="1">
+      <tr><th>Nome</th><th>Álcool</th><th>Estilo</th><th>Amargor</th></tr>
+      ${linhas.join("\n")}
+    </table>
+  `
+}
+
+document.getElementById("botaoEx4a")
+  .addEventListener("click", () => carregarDivEx4(cervejasEx3)) // usa o default
+
+document.getElementById("botaoEx4b")
+  .addEventListener("click", () => carregarDivEx4(cervejasEx3, "outroDivEx4")) // id arbitrário
+
+
+// ===================== Exercício 5 =====================
+const carregarDivEx5 = (
+  cs,
+  idElemento = "tabelaEx5Div",
+  cabecalhoNome = "Nome",
+  cabecalhoAlcool = "Álcool",
+  cabecalhoEstilo = "Estilo",
+  cabecalhoAmargor = "Amargor"
+) => {
+  const div = document.getElementById(idElemento)
+  const linhas = cs.map( ({name, alcohol, style, ibu}) =>
+    `<tr><td>${name}</td><td>${alcohol}</td><td>${style}</td><td>${ibu}</td></tr>` )
+  div.innerHTML = `
+    <table border="1">
+      <tr>
+        <th>${cabecalhoNome}</th>
+        <th>${cabecalhoAlcool}</th>
+        <th>${cabecalhoEstilo}</th>
+        <th>${cabecalhoAmargor}</th>
+      </tr>
+      ${linhas.join("\n")}
+    </table>
+  `
+}
+
+document.getElementById("botaoEx5a")
+  .addEventListener("click", () => carregarDivEx5(cervejasEx3)) // cabeçalhos default
+
+document.getElementById("botaoEx5b")
+  .addEventListener("click", () => carregarDivEx5(
+    cervejasEx3, "tabelaEx5Div", "Marca", "Teor Alcoólico", "Tipo", "IBU"
+  ))
+
+
+// ===================== Exercício 6 =====================
+const carregarDivEx6 = (
+  cs,
+  idElemento = "tabelaEx6Div",
+  propNome = "name",
+  propAlcool = "alcohol",
+  propEstilo = "style",
+  propAmargor = "ibu",
+  cabecalhoNome = "Nome",
+  cabecalhoAlcool = "Álcool",
+  cabecalhoEstilo = "Estilo",
+  cabecalhoAmargor = "Amargor"
+) => {
+  const div = document.getElementById(idElemento)
+  const linhas = cs.map( item =>
+    `<tr><td>${item[propNome]}</td><td>${item[propAlcool]}</td><td>${item[propEstilo]}</td><td>${item[propAmargor]}</td></tr>` )
+  div.innerHTML = `
+    <table border="1">
+      <tr>
+        <th>${cabecalhoNome}</th>
+        <th>${cabecalhoAlcool}</th>
+        <th>${cabecalhoEstilo}</th>
+        <th>${cabecalhoAmargor}</th>
+      </tr>
+      ${linhas.join("\n")}
+    </table>
+  `
+}
+
+document.getElementById("botaoEx6a")
+  .addEventListener("click", () => carregarDivEx6(cervejasEx3))
+
+let sorvetesEx6 = [
+  { sabor: "Chocolate", gordura: "12%", tipo: "Cremoso", docura: "40" },
+  { sabor: "Morango", gordura: "8%", tipo: "Sorbet", docura: "35" },
+  { sabor: "Flocos", gordura: "10%", tipo: "Cremoso", docura: "38" }
+]
+
+document.getElementById("botaoEx6b")
+  .addEventListener("click", () => carregarDivEx6(
+    sorvetesEx6,
+    "tabelaEx6Div",
+    "sabor", "gordura", "tipo", "docura",
+    "Sabor", "Gordura", "Tipo", "Doçura"
+  ))
+
+</script>
+
+</body>
+</html>

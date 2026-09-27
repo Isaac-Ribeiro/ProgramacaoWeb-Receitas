@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+<div><button id="botaoCarregar">Carregando cervejas...</button></div>
+<div id="cervejasDiv"></div>
+
+<h2>Exercício 1</h2>
+<div><button id="botaoEx1">Carregar cervejas completas</button></div>
+<div id="tabelaEx1Div"></div>
+
+<h2>Exercício 2</h2>
+<div><button id="botaoEx2">Carregar cervejas (estilizado)</button></div>
+<div id="tabelaEx2Div"></div>
+
+<h2>Exercício 3</h2>
+<div><button id="botaoEx3">Carregar usuários</button></div>
+<div id="tabelaEx3Div"></div>
+
+<h2>Exercício 4</h2>
+<div><button id="botaoEx4Posts">Carregar posts</button></div>
+<div><button id="botaoEx4Todos">Carregar tarefas (todos)</button></div>
+<div id="tabelaEx4Div"></div>
+
+<script src="tabela.js"></script>
+
+<script>
+
+let cervejas = []
+
+const carregarDiv = cs => {
+  const div = document.getElementById("cervejasDiv")
+  const itensHtml = cs.map( ({name, alcohol}) => `<div>${name} -- ${alcohol}</div>` )
+  div.innerHTML = `${itensHtml.join("\n")}`
+}
+
+function carregarCervejas2(){
+  fetch("https://jsonplaceholder.typicode.com/users").then(
+    res => res.json()
+  ).then(
+    usuarios => {
+      cervejas = usuarios.map(u => ({ name: u.name, alcohol: u.email }))
+      carregarDiv(cervejas)
+    }
+  ).catch(
+    err => document.getElementById("cervejasDiv").innerHTML = `Fudeu... ${err}`
+  )
+  document.getElementById("cervejasDiv").innerHTML = `Fazendo requisição`
+}
+
+document.getElementById("botaoCarregar")
+  .addEventListener("click", () => carregarCervejas2())
+
+
+// ===================== Exercício 1 =====================
+function carregarCervejasEx1(){
+  fetch("https://jsonplaceholder.typicode.com/posts?_limit=5").then(
+    res => res.json()
+  ).then(
+    posts => {
+      const cervejasCompletas = posts.map(p => ({
+        name: p.title.split(" ").slice(0,3).join(" "),
+        style: "IPA",
+        hop: "Cascade",
+        malts: "Pale",
+        ibu: (10 + p.id) + " IBU",
+        blg: (10 + p.id / 2).toFixed(1) + "°Blg"
+      }))
+      const div = document.getElementById("tabelaEx1Div")
+      const linhas = cervejasCompletas.map( ({name, style, hop, malts, ibu, blg}) =>
+        `<tr><td>${name}</td><td>${style}</td><td>${hop}</td><td>${malts}</td><td>${ibu}</td><td>${blg}</td></tr>` )
+      div.innerHTML = `
+        <table border="1">
+          <tr><th>Nome</th><th>Estilo</th><th>Lúpulo</th><th>Malte</th><th>IBU</th><th>°Blg</th></tr>
+          ${linhas.join("\n")}
+        </table>
+      `
+    }
+  ).catch(
+    err => document.getElementById("tabelaEx1Div").innerHTML = `Fudeu... ${err}`
+  )
+}
+
+document.getElementById("botaoEx1")
+  .addEventListener("click", () => carregarCervejasEx1())
+
+
+// ===================== Exercício 2 =====================
+function carregarCervejasEx2(){
+  fetch("https://jsonplaceholder.typicode.com/posts?_limit=5").then(
+    res => res.json()
+  ).then(
+    posts => {
+      const cervejasCompletas = posts.map(p => ({
+        name: p.title.split(" ").slice(0,3).join(" "),
+        style: "Lager",
+        ibu: (10 + p.id) + " IBU",
+        alcohol: (4 + p.id / 3).toFixed(1) + "%"
+      }))
+      const div = document.getElementById("tabelaEx2Div")
+      const linhas = cervejasCompletas.map( ({name, style, ibu, alcohol}) =>
+        `<tr><td>${name}</td><td>${style}</td><td>${ibu}</td><td>${alcohol}</td></tr>` )
+      div.innerHTML = `
+        <style>
+          #tabelaEx2Div table {
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+          }
+          #tabelaEx2Div th, #tabelaEx2Div td {
+            border: 1px solid #999;
+            padding: 8px 16px;
+            text-align: left;
+          }
+          #tabelaEx2Div th {
+            background-color: #333;
+            color: white;
+          }
+          #tabelaEx2Div tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+        </style>
+        <table>
+          <tr><th>Nome</th><th>Estilo</th><th>IBU</th><th>Álcool</th></tr>
+          ${linhas.join("\n")}
+        </table>
+      `
+    }
+  ).catch(
+    err => document.getElementById("tabelaEx2Div").innerHTML = `Fudeu... ${err}`
+  )
+}
+
+document.getElementById("botaoEx2")
+  .addEventListener("click", () => carregarCervejasEx2())
+
+
+// ===================== Exercício 3 =====================
+function carregarUsuariosEx3(){
+  fetch("https://jsonplaceholder.typicode.com/users").then(
+    res => res.json()
+  ).then(
+    usuarios => {
+      const div = document.getElementById("tabelaEx3Div")
+      const linhas = usuarios.map( ({name, username, email, phone}) =>
+        `<tr><td>${name}</td><td>${username}</td><td>${email}</td><td>${phone}</td></tr>` )
+      div.innerHTML = `
+        <table border="1">
+          <tr><th>Nome</th><th>Usuário</th><th>Email</th><th>Telefone</th></tr>
+          ${linhas.join("\n")}
+        </table>
+      `
+    }
+  ).catch(
+    err => document.getElementById("tabelaEx3Div").innerHTML = `Fudeu... ${err}`
+  )
+}
+
+document.getElementById("botaoEx3")
+  .addEventListener("click", () => carregarUsuariosEx3())
+
+
+// ===================== Exercício 4 =====================
+function carregarPostsEx4(){
+  fetch("https://jsonplaceholder.typicode.com/posts?_limit=5").then(
+    res => res.json()
+  ).then(
+    posts => montarTabela(
+      posts,
+      "tabelaEx4Div",
+      ["id", "title", "body"],
+      ["ID", "Título", "Conteúdo"]
+    )
+  ).catch(
+    err => document.getElementById("tabelaEx4Div").innerHTML = `Fudeu... ${err}`
+  )
+}
+
+function carregarTodosEx4(){
+  fetch("https://jsonplaceholder.typicode.com/todos?_limit=5").then(
+    res => res.json()
+  ).then(
+    todos => montarTabela(
+      todos,
+      "tabelaEx4Div",
+      ["id", "title", "completed"],
+      ["ID", "Tarefa", "Concluída?"]
+    )
+  ).catch(
+    err => document.getElementById("tabelaEx4Div").innerHTML = `Fudeu... ${err}`
+  )
+}
+
+document.getElementById("botaoEx4Posts")
+  .addEventListener("click", () => carregarPostsEx4())
+
+document.getElementById("botaoEx4Todos")
+  .addEventListener("click", () => carregarTodosEx4())
+
+</script>
+
+</body>
+</html>

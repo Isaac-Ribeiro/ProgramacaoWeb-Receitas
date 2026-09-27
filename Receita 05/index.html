@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+
+<body>
+
+<div><button id="botaoCarregar">Carregando cervejas...</button></div>
+<div id="meu amor"></div>
+
+<h2>Exercício 1</h2>
+<div><button id="botaoCarregar1">Carregando cervejas...</button></div>
+<div id="meu amor1"></div>
+
+<h2>Exercício 2</h2>
+<div>
+  <button id="botaoCarregarSorvetes">Carregar sorvetes</button>
+  <button id="botaoRemoverSorvete">Remover último</button>
+  <button id="botaoContarSorvetes">Contar sabores</button>
+</div>
+<div>
+  <input type="text" id="inputSorvete">
+  <button id="botaoAdicionarSorvete">Adicionar sabor</button>
+</div>
+<div id="divSorvetes"></div>
+<div id="divContagem"></div>
+
+<h2>Exercício 3</h2>
+<div>
+  <a href="#" id="linkCarregar">Carregar sorvetes</a> |
+  <a href="#" id="linkRemover">Remover último</a> |
+  <a href="#" id="linkContar">Contar sabores</a> |
+  <a href="#" id="linkAdicionar">Adicionar sabor</a>
+  <input type="text" id="inputSorveteLink">
+</div>
+<div id="divSorveteLinks"></div>
+<div id="divContagemLinks"></div>
+
+<script>
+
+let cervejas = ["Guiness", "Desperados", "Becks"]
+
+const carregarDiv = () => {
+  const div = document.getElementById("meu amor")
+  const cervejasHtml = cervejas.map( item => `<h1>${item}</h1>` )
+  div.innerHTML = `${cervejasHtml.join("\n")}`
+}
+
+let botao = document.getElementById("botaoCarregar")
+botao.addEventListener("click", carregarDiv)
+
+
+// ===== Exercício 1 =====
+const carregarDivEx1 = (cervs) => {
+  const div = document.getElementById("meu amor1")
+  const cervejasHtml = cervs.map( item => `<h1>${item}</h1>` )
+  div.innerHTML = `${cervejasHtml.join("\n")}`
+}
+
+document.getElementById("botaoCarregar1")
+  .addEventListener("click", () => carregarDivEx1(cervejas))
+
+
+// ===== Exercício 2 =====
+let sorvetes = ["Chocolate", "Morango", "Flocos", "Napolitano"]
+
+const transformarSorvete = sabor => `<h1>${sabor}</h1>`
+
+const carregarSorvetes = (lista) => {
+  const div = document.getElementById("divSorvetes")
+  const html = lista.map(transformarSorvete)
+  div.innerHTML = `${html.join("\n")}`
+}
+
+const adicionarSorvete = () => {
+  const input = document.getElementById("inputSorvete")
+  if (input.value.trim() !== "") {
+    sorvetes.push(input.value.trim())
+    input.value = ""
+    carregarSorvetes(sorvetes)
+  }
+}
+
+const removerUltimoSorvete = () => {
+  sorvetes.pop()
+  carregarSorvetes(sorvetes)
+}
+
+const contarSorvetes = () => {
+  const div = document.getElementById("divContagem")
+  div.innerHTML = `<p>Total de sabores: ${sorvetes.length}</p>`
+}
+
+document.getElementById("botaoCarregarSorvetes")
+  .addEventListener("click", () => carregarSorvetes(sorvetes))
+
+document.getElementById("botaoAdicionarSorvete")
+  .addEventListener("click", adicionarSorvete)
+
+document.getElementById("botaoRemoverSorvete")
+  .addEventListener("click", removerUltimoSorvete)
+
+document.getElementById("botaoContarSorvetes")
+  .addEventListener("click", contarSorvetes)
+
+
+// ===== Exercício 3 =====
+const carregarSorvetesLinks = (lista) => {
+  const div = document.getElementById("divSorveteLinks")
+  const html = lista.map(transformarSorvete)
+  div.innerHTML = `${html.join("\n")}`
+}
+
+const contarSorvetesLinks = () => {
+  const div = document.getElementById("divContagemLinks")
+  div.innerHTML = `<p>Total de sabores: ${sorvetes.length}</p>`
+}
+
+document.getElementById("linkCarregar").addEventListener("click", (e) => {
+  e.preventDefault()
+  carregarSorvetesLinks(sorvetes)
+})
+
+document.getElementById("linkRemover").addEventListener("click", (e) => {
+  e.preventDefault()
+  sorvetes.pop()
+  carregarSorvetesLinks(sorvetes)
+})
+
+document.getElementById("linkContar").addEventListener("click", (e) => {
+  e.preventDefault()
+  contarSorvetesLinks()
+})
+
+document.getElementById("linkAdicionar").addEventListener("click", (e) => {
+  e.preventDefault()
+  const input = document.getElementById("inputSorveteLink")
+  if (input.value.trim() !== "") {
+    sorvetes.push(input.value.trim())
+    input.value = ""
+    carregarSorvetesLinks(sorvetes)
+  }
+})
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+O Link do Next navega entre páginas sem solicitar novamente o documento inteiro ao servidor, preservando a experiência de uma aplicação de página única. Por isso, o layout raiz permanece montado e seu console.log não é executado outra vez durante essa navegação. O elemento <a> faz uma navegação tradicional, solicitando a página novamente e renderizando o layout no servidor.

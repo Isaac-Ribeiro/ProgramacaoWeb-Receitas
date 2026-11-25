@@ -1,0 +1,17 @@
+{
+  "name": "next0-receita19-exercicio2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "better-sqlite3": "^13.2.0",
+    "next": "^16.4.6"
+  }
+}
